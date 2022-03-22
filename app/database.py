@@ -1,3 +1,4 @@
+from tkinter import Y
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -25,7 +26,7 @@ def get_db():
 while True:
     try:
         conn = psycopg2.connect(
-            host='localhost', database='fastapi', user='postgres', password='password', cursor_factory=RealDictCursor)
+            host=f'{settings.database_hostname}', database=f'{settings.database_name}', user=f'{settings.database_username}', password=f'{settings.database_password}', cursor_factory=RealDictCursor)
         cursor = conn.cursor()
         print("database connection is successful")
         break
