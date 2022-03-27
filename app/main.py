@@ -27,9 +27,14 @@ app.add_middleware(
 
 @app.get("/")
 def get_posts(db: Session = Depends(get_db), limit: int = 10, search: Optional[str] = ""):
-    posts = db.query(models.Post).filter(
-        models.Post.title.contains(search)).limit(limit).all()
-    print(limit)
+    while True:
+        try:
+            posts = db.query(models.Post).filter(
+                models.Post.title.contains(search)).limit(limit).all()
+            print("get is successful")
+            break
+        except Exception as error:
+            print("get failed")
     return posts
 
 
